@@ -1,3 +1,2 @@
 @echo off
-python ls.py %1
-pause
+python "%~dp0ls.py" %1

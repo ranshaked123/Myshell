@@ -1,7 +1,9 @@
 import subprocess
 import os
+import getpass
 
 currD = os.path.dirname(os.path.abspath("MyShell.py"))
+shellD = os.path.dirname(os.path.abspath(__file__))
 
 while True:
     print(currD + ">>>", end="")
@@ -9,7 +11,7 @@ while True:
     if command == "exit":
         break
     elif command == "hello":
-        print("hello")
+        print("hello " + getpass.getuser())
     elif command.startswith("cd"):
         path = command.split(" ")[1]
 
@@ -20,8 +22,14 @@ while True:
             print("The system cannot find the path specified.")
 
     elif command.startswith("ls"):
-        parts = command.split(" ")
-        file_to_ls = None
+        parts = command.split(" ", 1)
+        file_to_ls = currD
         if len(parts) > 1:
             file_to_ls = parts[1]
-        subprocess.run(["ls.bat",file_to_ls])
+        subprocess.run([os.path.join(shellD, "ls.bat"),file_to_ls])
+
+    elif command.startswith("hexdump"):
+        parts = command.split(" ", 1)
+        if len(parts) > 1:
+            file_to_hexdump = parts[1]
+            subprocess.run([os.path.join(shellD, "hexdump.bat"),file_to_hexdump])
