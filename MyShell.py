@@ -33,3 +33,9 @@ while True:
         if len(parts) > 1:
             file_to_hexdump = parts[1]
             subprocess.run([os.path.join(shellD, "hexdump.bat"),file_to_hexdump])
+
+    elif command.startswith("grep"):
+        parts = command.split(" ", 2)
+        if len(parts) == 3:
+            subprocess.run([os.path.join(shellD, "grep.bat"), parts[1], parts[2]])
+            print()
